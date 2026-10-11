@@ -87,27 +87,27 @@ def cmd_stats(_args: argparse.Namespace) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="normahub",
-        description="NormaHub Local AI Gateway and CLI."
+        description="Локальный AI Gateway демон и CLI для NormaHub API."
     )
-    subparsers = parser.add_subparsers(dest="subcommand", help="Available commands")
+    subparsers = parser.add_subparsers(dest="subcommand", help="Доступные команды")
 
     # Command: start
-    p_start = subparsers.add_parser("start", help="Start the local AI gateway daemon & Web UI")
-    p_start.add_argument("-p", "--port", type=int, default=8000, help="Gateway HTTP port (default: 8000)")
-    p_start.add_argument("--api-key", help="NormaHub API key (or set NORMAHUB_API_KEY)")
-    p_start.add_argument("--open-browser", action="store_true", help="Automatically open Model Arena Web UI in browser")
+    p_start = subparsers.add_parser("start", help="Запустить локальный gateway-сервер и Web UI")
+    p_start.add_argument("-p", "--port", type=int, default=8000, help="Порт HTTP сервера (по умолчанию: 8000)")
+    p_start.add_argument("--api-key", help="API-ключ NormaHub (или переменная NORMAHUB_API_KEY)")
+    p_start.add_argument("--open-browser", action="store_true", help="Автоматически открыть Web UI в браузере")
 
     # Command: setup
-    p_setup = subparsers.add_parser("setup", help="Auto-configure Cursor, Cline, OpenCode, Claude Desktop")
-    p_setup.add_argument("--ide", default="all", choices=["cursor", "cline", "opencode", "claude", "all"], help="Target IDE")
-    p_setup.add_argument("-p", "--port", type=int, default=8000, help="Local gateway port (default: 8000)")
-    p_setup.add_argument("--api-key", help="NormaHub API key")
+    p_setup = subparsers.add_parser("setup", help="Авто-настройка окружения для Cursor, Cline, OpenCode, Claude")
+    p_setup.add_argument("--ide", default="all", choices=["cursor", "cline", "opencode", "claude", "all"], help="Целевая среда разработки")
+    p_setup.add_argument("-p", "--port", type=int, default=8000, help="Порт локального шлюза (по умолчанию: 8000)")
+    p_setup.add_argument("--api-key", help="API-ключ NormaHub")
 
     # Command: models
-    subparsers.add_parser("models", help="List all 30 connected models with prices and tiers")
+    subparsers.add_parser("models", help="Вывести каталог поддерживаемых моделей и тарифы")
 
     # Command: stats
-    subparsers.add_parser("stats", help="Display local cache hits and money saved (RUB)")
+    subparsers.add_parser("stats", help="Показать статистику кэша и сэкономленные средства (₽)")
 
     args = parser.parse_args()
 
