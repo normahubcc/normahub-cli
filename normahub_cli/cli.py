@@ -67,27 +67,27 @@ def cmd_models(_args: argparse.Namespace) -> int:
         in_p = f"${m['input_price_1m']:.4f}" if m['input_price_1m'] > 0 else "Free / Fix"
         out_p = f"${m['output_price_1m']:.4f}" if m['output_price_1m'] > 0 else "-"
         print(f"{m['id']:<25} | {m['vendor']:<12} | {in_p:<10} | {out_p:<10} | {m['tier']}")
-    print("\n[+] Total 30 models connected. Direct access from Russia without VPN.\n")
+    print(f"\nTotal models: {len(MODELS_CATALOG)}\n")
     return 0
 
 
 def cmd_stats(_args: argparse.Namespace) -> int:
     cache = LocalCacheManager()
     stats = cache.get_stats()
-    print("\n================= NORMAHUB FINOPS & CACHE METRICS =================")
-    print(f" Total Gateway Requests: {stats['total_requests']}")
-    print(f" Local Cache Hits:       {stats['cache_hits']} ({stats['hit_rate_pct']}%)")
-    print(f" Total Tokens Saved:     {stats['tokens_saved']}")
-    print(f" Money Saved for Team:   {stats['rubles_saved']} ₽")
-    print(f" Cached Prompt Entries:  {stats['total_cached_entries']}")
-    print("===================================================================\n")
+    print("\n--- Cache and FinOps Metrics ---")
+    print(f"Total Requests:       {stats['total_requests']}")
+    print(f"Cache Hits:           {stats['cache_hits']} ({stats['hit_rate_pct']}%)")
+    print(f"Tokens Saved:         {stats['tokens_saved']}")
+    print(f"Cost Saved (RUB):     {stats['rubles_saved']} ₽")
+    print(f"Cached Entries:       {stats['total_cached_entries']}")
+    print("--------------------------------\n")
     return 0
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(
         prog="normahub",
-        description="NormaHub Universal AI Gateway, Local Engine & Model Arena."
+        description="NormaHub Local AI Gateway and CLI."
     )
     subparsers = parser.add_subparsers(dest="subcommand", help="Available commands")
 

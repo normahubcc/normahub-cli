@@ -1,12 +1,11 @@
 """
 Pareto Model Router & Heuristic Complexity Evaluator.
-Routes requests dynamically to save up to 75% on LLM token costs.
+Routes requests dynamically to optimize LLM token costs.
 """
 
 import re
 from typing import List, Tuple
 
-# Markers of high-complexity programming & architectural reasoning
 CODE_MARKERS = [
     r"\bdef\s+\w+\(",
     r"\bclass\s+\w+",
@@ -37,17 +36,11 @@ REASONING_MARKERS = [
 
 
 class ParetoRouter:
-    """Evaluates request requirements and assigns the optimal cost-effective model."""
+    """Evaluates request requirements and assigns the optimal model."""
 
     @classmethod
     def evaluate_complexity(cls, messages: List[dict]) -> Tuple[str, str]:
-        """Analyzes messages and returns (selected_model_id, rationale).
-
-        Complexity levels:
-        - ultra_flash: DeepSeek v4.1 Flash ($0.018/1M) - greetings, summary, chat, translation
-        - balanced: Claude Sonnet 5 ($0.15/1M) - standard development & analysis
-        - flagship_reasoning: Claude Sonnet 5.5 ($0.35/1M) / GPT-6 Sol - deep code, architecture, math
-        """
+        """Analyzes messages and returns (selected_model_id, rationale)."""
         full_text = " ".join(str(m.get("content", "")) for m in messages)
         char_len = len(full_text)
 

@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "normahub-cli"
 version = "1.0.0"
-description = "Universal Local AI Gateway, Engine & Model Arena for Russia & CIS. Zero-config access to 30 models (GPT-6, Claude 3.5/5, DeepSeek, SeeDance Video) without VPN."
+description = "Local AI Gateway daemon with SQLite caching, Pareto router, Web UI and IDE patcher for NormaHub API."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
@@ -20,10 +20,8 @@ keywords = [
     "pareto-router",
     "cursor",
     "cline",
-    "opencode",
     "seedance",
-    "claude",
-    "gpt-6"
+    "openai-proxy"
 ]
 classifiers = [
     "Development Status :: 5 - Production/Stable",

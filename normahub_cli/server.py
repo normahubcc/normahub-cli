@@ -343,9 +343,9 @@ class NormaHubGatewayServer:
         NormaHubHTTPHandler.upstream_client = self.upstream_client
 
         self.httpd = http.server.ThreadingHTTPServer(("0.0.0.0", self.port), NormaHubHTTPHandler)
-        print(f"⚡ NormaHub Universal Gateway running on: http://localhost:{self.port}")
-        print(f"🖥️ Local Web UI & Model Arena:         http://localhost:{self.port}/ui")
-        print(f"🧠 Local SQLite Cache initialized:     {self.cache_manager.db_path}")
+        print(f"NormaHub Gateway running on: http://localhost:{self.port}")
+        print(f"Local Web UI:                 http://localhost:{self.port}/ui")
+        print(f"Cache database:               {self.cache_manager.db_path}")
 
         try:
             self.httpd.serve_forever()
