@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NormaHub Local Engine & Model Arena</title>
+  <link rel="stylesheet" href="/ui/style.css">
+  <link rel="icon" href="https://normahub.cc/favicon.ico">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-logo">NH</div>
+        <div>
+          <h1 class="brand-title">NormaHub Engine</h1>
+          <span class="brand-sub">Local AI Gateway & Model Arena</span>
+        </div>
+      </div>
+      <div class="header-badges">
+        <div class="status-badge pulse">
+          <span class="dot"></span> 100% Прямой маршрут (Без VPN)
+        </div>
+        <div class="stat-pill">
+          <span class="stat-label">Сэкономлено:</span>
+          <span id="rubles-saved-badge" class="stat-value">0.00 ₽</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="arena">⚔️ Сплит-Арена Моделей</button>
+      <button class="tab-btn" data-tab="video">🎬 SeeDance Video Studio</button>
+      <button class="tab-btn" data-tab="cache">🧠 Кэш & FinOps</button>
+      <button class="tab-btn" data-tab="export">⚡ Генератор Кода</button>
+    </nav>
+
+    <!-- TAB 1: MODEL ARENA -->
+    <section id="tab-arena" class="tab-pane active">
+      <div class="prompt-box">
+        <textarea id="arena-prompt" placeholder="Введите ваш промпт или сложный фрагмент кода для одновременного тестирования в двух моделях..."></textarea>
+        <div class="prompt-actions">
+          <button id="arena-run-btn" class="btn btn-primary">Запустить Дуэль Моделей ⚡</button>
+        </div>
+      </div>
+
+      <div class="arena-grid">
+        <!-- Model A -->
+        <div class="arena-card">
+          <div class="card-header">
+            <span class="card-title">Модель А</span>
+            <select id="model-a-select" class="select-input"></select>
+          </div>
+          <div class="metrics-bar">
+            <span>Задержка (TTFT): <strong id="ttft-a">-</strong></span>
+            <span>Стоимость: <strong id="cost-a">-</strong></span>
+          </div>
+          <div id="output-a" class="output-content">Здесь появится ответ Модели А...</div>
+        </div>
+
+        <!-- Model B -->
+        <div class="arena-card">
+          <div class="card-header">
+            <span class="card-title">Модель Б</span>
+            <select id="model-b-select" class="select-input"></select>
+          </div>
+          <div class="metrics-bar">
+            <span>Задержка (TTFT): <strong id="ttft-b">-</strong></span>
+            <span>Стоимость: <strong id="cost-b">-</strong></span>
+          </div>
+          <div id="output-b" class="output-content">Здесь появится ответ Модели Б...</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: VIDEO STUDIO -->
+    <section id="tab-video" class="tab-pane">
+      <div class="studio-card">
+        <h2>Генерация видео через SeeDance 2.5 & Grok Video</h2>
+        <p class="subtitle">Прямой запуск нейросетей генерации видео без очередей и зарубежных карт.</p>
+        
+        <div class="form-group">
+          <label>Текстовое описание сцены (Prompt):</label>
+          <textarea id="video-prompt" rows="3" placeholder="Неоновый киберпанк город будущего, пролетающие дроны, отражения на мокром асфальте, 4k cinematic"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group flex-1">
+            <label>Модель:</label>
+            <select id="video-model-select" class="select-input">
+              <option value="seedance-2.5">SeeDance 2.5 (Кинематографичная)</option>
+              <option value="seedance-2.0">SeeDance 2.0 (Высокая скорость)</option>
+              <option value="grok-imagine-video-1.5">Grok Imagine Video 1.5</option>
+            </select>
+          </div>
+          <div class="form-group flex-1">
+            <label>Длительность:</label>
+            <select id="video-duration-select" class="select-input">
+              <option value="5">5 секунд</option>
+              <option value="10">10 секунд</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="video-generate-btn" class="btn btn-primary">Сгенерировать Видео 🎬</button>
+
+        <div id="video-status-box" class="status-box hidden">
+          <div class="spinner"></div>
+          <span id="video-status-text">Инициализация задачи...</span>
+        </div>
+
+        <div id="video-result-box" class="video-preview-box hidden">
+          <video id="video-player" controls autoplay loop></video>
+          <div class="video-actions">
+            <a id="video-download-link" class="btn btn-secondary" download="rendered_video.mp4">Скачать MP4</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CACHE & FINOPS -->
+    <section id="tab-cache" class="tab-pane">
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="m-label">Всего запросов</span>
+          <span id="stat-total-requests" class="m-value">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="m-label">Попаданий в кэш</span>
+          <span id="stat-cache-hits" class="m-value">0</span>
+        </div>
+        <div class="metric-card">
+          <span class="m-label">Эффективность кэша</span>
+          <span id="stat-hit-rate" class="m-value">0%</span>
+        </div>
+        <div class="metric-card accent">
+          <span class="m-label">Сэкономлено рублей</span>
+          <span id="stat-rubles-saved" class="m-value">0.00 ₽</span>
+        </div>
+      </div>
+
+      <div class="studio-card mt-6">
+        <h3>Управление локальным кэшем</h3>
+        <p class="subtitle">Локальная база данных SQLite хранит дубликаты промптов. Повторные запросы отдаются за 0 мс и бесплатно.</p>
+        <button id="clear-cache-btn" class="btn btn-danger">Очистить локальный кэш</button>
+      </div>
+    </section>
+
+    <!-- TAB 4: CODE EXPORT -->
+    <section id="tab-export" class="tab-pane">
+      <div class="studio-card">
+        <h3>Готовый код для вашего проекта</h3>
+        <p class="subtitle">Скопируйте сниппет для мгновенной интеграции в ваш код. Меняется только base_url на локальный шлюз.</p>
+        
+        <div class="code-tabs">
+          <button class="code-tab-btn active" data-lang="python">Python</button>
+          <button class="code-tab-btn" data-lang="ts">TypeScript</button>
+          <button class="code-tab-btn" data-lang="curl">cURL</button>
+        </div>
+
+        <pre><code id="exported-code-snippet">Загрузка сниппета...</code></pre>
+      </div>
+    </section>
+  </div>
+
+  <script src="/ui/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "normahub-cli"
+version = "1.0.0"
+description = "Universal Local AI Gateway, Engine & Model Arena for Russia & CIS. Zero-config access to 30 models (GPT-6, Claude 3.5/5, DeepSeek, SeeDance Video) without VPN."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "NormaHub Core Team", email = "manager@normahub.cc" }
+]
+requires-python = ">=3.9"
+keywords = [
+    "normahub",
+    "ai-gateway",
+    "model-arena",
+    "llm-cache",
+    "pareto-router",
+    "cursor",
+    "cline",
+    "opencode",
+    "seedance",
+    "claude",
+    "gpt-6"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.scripts]
+normahub = "normahub_cli.cli:main"
+
+[project.urls]
+Homepage = "https://normahub.cc"
+Documentation = "https://normahub.cc/company/articles"
+Repository = "https://github.com/normahubcc/normahub-cli"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.setuptools.package-data]
+"normahub_cli" = ["ui/*"]
+
+
