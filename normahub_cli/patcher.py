@@ -1,6 +1,6 @@
 """
-1-Click IDE Auto-Patcher for NormaHub.
-Seamlessly configures Cursor, Cline, OpenCode, and Claude Desktop
+IDE auto-configuration for NormaHub.
+Configures Cursor, Cline, OpenCode, and Claude Desktop
 to use NormaHub's local gateway and Model Context Protocol servers.
 """
 

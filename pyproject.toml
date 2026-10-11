@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "normahub-cli"
 version = "1.0.0"
-description = "Local AI Gateway daemon with SQLite caching, Pareto router, Web UI and IDE patcher for NormaHub API."
+description = "Local AI Gateway daemon with SQLite caching, model router, Web UI and IDE setup for NormaHub API."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
@@ -17,7 +17,7 @@ keywords = [
     "ai-gateway",
     "model-arena",
     "llm-cache",
-    "pareto-router",
+    "model-router",
     "cursor",
     "cline",
     "seedance",
