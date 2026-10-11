@@ -1,0 +1,17 @@
+services:
+  normahub-gateway:
+    build: .
+    image: normahubcc/normahub-cli:latest
+    container_name: normahub-gateway
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - NORMAHUB_API_KEY=${NORMAHUB_API_KEY}
+      - NORMAHUB_BASE_URL=https://api.normahub.cc/v1
+    volumes:
+      - normahub-data:/root/.normahub
+
+volumes:
+  normahub-data:
+    driver: local

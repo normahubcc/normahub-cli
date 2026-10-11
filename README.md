@@ -149,6 +149,12 @@ docker run -d \
   normahubcc/normahub-cli:latest
 ```
 
+Или через `docker compose`:
+
+```bash
+docker compose up -d
+```
+
 ---
 
 ## Лицензия
