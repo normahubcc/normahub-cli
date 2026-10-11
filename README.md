@@ -1,6 +1,12 @@
+<p align="center">
+  <a href="https://normahub.cc">
+    <img src="./docs/images/logo.png" alt="NormaHub" width="120" />
+  </a>
+</p>
+
 # normahub-cli
 
-[![PyPI Version](https://img.shields.io/pypi/v/normahub-cli?style=flat-square)](https://pypi.org/project/normahub-cli/)
+[![Release](https://img.shields.io/badge/release-v1.0.0-blue?style=flat-square)](https://github.com/normahubcc/normahub-cli/releases)
 [![Python](https://img.shields.io/badge/python-3.9+-blue?style=flat-square)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
