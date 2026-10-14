@@ -161,3 +161,48 @@ class NormaHubUpstreamClient:
                 "object": "list",
                 "data": [{"id": m["id"], "object": "model", "owned_by": m["vendor"]} for m in MODELS_CATALOG],
             }
+
+    def check_ping(self) -> Dict[str, Any]:
+        """Measure upstream network latency (RTT) and connection status."""
+        url = f"{self.base_url}/models"
+        req = urllib.request.Request(url, headers=self._headers(), method="GET")
+        start = time.perf_counter()
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                elapsed_ms = (time.perf_counter() - start) * 1000.0
+                data = json.loads(resp.read().decode("utf-8"))
+                models_count = len(data.get("data", []))
+                return {
+                    "status": "connected",
+                    "latency_ms": round(elapsed_ms, 2),
+                    "base_url": self.base_url,
+                    "models_count": models_count,
+                }
+        except urllib.error.HTTPError as e:
+            elapsed_ms = (time.perf_counter() - start) * 1000.0
+            return {
+                "status": f"HTTP {e.code}",
+                "latency_ms": round(elapsed_ms, 2),
+                "base_url": self.base_url,
+                "error": str(e),
+            }
+        except Exception as e:
+            elapsed_ms = (time.perf_counter() - start) * 1000.0
+            return {
+                "status": "unreachable",
+                "latency_ms": round(elapsed_ms, 2),
+                "base_url": self.base_url,
+                "error": str(e),
+            }
+
+    def get_balance(self) -> Dict[str, Any]:
+        """Fetches account balance and subscription info."""
+        url = f"{self.base_url}/balance"
+        req = urllib.request.Request(url, headers=self._headers(), method="GET")
+        try:
+            with urllib.request.urlopen(req, timeout=10) as resp:
+                return json.loads(resp.read().decode("utf-8"))
+        except urllib.error.HTTPError as e:
+            return {"error": f"HTTP {e.code}", "balance": None, "currency": "RUB"}
+        except Exception as e:
+            return {"error": str(e), "balance": None, "currency": "RUB"}
